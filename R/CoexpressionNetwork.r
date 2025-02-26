@@ -325,7 +325,7 @@ CoexpressionNetwork_Postprocessing <- function(datasetDir, workingDir, networkTy
   rm(net)
   rm(loadWGCNA)
   rm(loaddata)
-  
+
   get_interactions2 <- subset(get_interactions2, get_interactions2[ ,3] > NetWorkCutThreshold) # remove weakly correlated edges to reduce size
   get_interactions2 = subset(get_interactions2, is.element(get_interactions2$from, standard_corr[[geneName_col]])) # remove genes without correlation value
   get_interactions2 = subset(get_interactions2, is.element(get_interactions2$to, standard_corr[[geneName_col]]))
@@ -376,7 +376,7 @@ CoexpressionNetwork_Postprocessing <- function(datasetDir, workingDir, networkTy
 #' check README for an example
 #' @export
 CoexpressionNetwork_Clusteranalysis <- function(datasetDir, workingDir, networkType = "unsigned", power_thre, numOfGOterms = 10){
-  
+
   setwd(workingDir)
   # The following setting is important, do not omit.
   options(stringsAsFactors = FALSE);
@@ -457,7 +457,7 @@ CoexpressionNetwork_Clusteranalysis <- function(datasetDir, workingDir, networkT
   ant$index=ant$hgnc_symbol
 
   genesColors <-data.frame(names(datExpr), stringsAsFactors=FALSE)
-  genesColors$colors <-data.frame(moduleColors, stringsAsFactors=FALSE)
+  genesColors$colors <-moduleColors
   names(genesColors)=c('index', 'color')
   # gene correlation with each modules eigengene
   gmm=data.frame(geneModuleMembership, stringsAsFactors=FALSE)
@@ -556,7 +556,7 @@ SignatureClusters <- function(p_threshold, numberOfGenes, pathToSignatureFile, w
   removecolumns <- c("color", "moduleLabels")
   top_n_genes = top_n_genes[, !(names(top_n_genes) %in% removecolumns)]
   top_n_genes = top_n_genes[order(top_n_genes[, rankCol]),]
-  
+
   tab = GOenr$bestPTerms[[4]]$enrichment
 
 
